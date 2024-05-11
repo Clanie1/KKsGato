@@ -35,10 +35,13 @@ const insertRecord = async (obj: any) => {
 
 const app = express();
 const port = process.env.PORT;
+
 app.get("/", async (req, res) => {
   const { data, error } = await supabase.from("records").select("*");
-  console.log(data);
-  res.send("Express + TypeScript Server");
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+  res.send(data);
 });
 
 app.listen(port, () => {
