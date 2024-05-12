@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import supabase from "./data/supabase";
 import mqtt from "mqtt";
+import cors from "cors";
 dotenv.config();
 
 const client = mqtt.connect("mqtt://mqtt.eclipseprojects.io");
@@ -34,6 +35,7 @@ const insertRecord = async (obj: any) => {
 };
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT;
 
 app.get("/", async (req, res) => {
